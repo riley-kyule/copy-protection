@@ -1,0 +1,45 @@
+<style>
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  #no-right-click-msg {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    background: #222;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    pointer-events: none;
+    opacity: 0.97;
+    transition: opacity 0.2s;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Right-click message
+    const msg = document.createElement('div');
+    msg.id = 'no-right-click-msg';
+    msg.innerText = "Nice try! Right-click is disabled on this website.";
+    document.body.appendChild(msg);
+
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      msg.style.top = (e.clientY + 8) + 'px';
+      msg.style.left = (e.clientX + 8) + 'px';
+      msg.style.display = 'block';
+      setTimeout(() => { msg.style.display = 'none'; }, 1800);
+    });
+
+    // Block copying & Trigger popup when copy shortcut is pressed
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      alert('Copying text is disabled on this website!');
+    });
+  });
+</script>
